@@ -1,0 +1,82 @@
+MAILFLOW LITE v1.0.0 - WINDOWS RELEASE
+======================================
+
+WHAT THIS IS
+------------
+MailFlow Lite is a local Windows desktop application for consent-based,
+scheduled email sending. Everything runs on your own PC: the interface,
+the SQLite database, the credentials and the scheduler. There is no server
+and no hosting account.
+
+REQUIREMENTS
+------------
+- Windows 10 or Windows 11, 64-bit
+- No Python installation is required
+- An internet connection is only needed for Gmail/SMTP sign-in and sending
+- A Google account, if you want Gmail sending (one-time OAuth setup)
+
+INSTALL (2 STEPS)
+-----------------
+1. Extract the whole ZIP to a permanent, writable folder, for example:
+      C:\Users\<you>\Apps\MailFlowLite
+   Do NOT run the EXE from inside the ZIP window.
+2. Double-click MailFlowLite.exe.
+
+First launch creates your local data folder:
+      %LOCALAPPDATA%\MailFlowLite
+   containing mailflow.sqlite3 (your database), a credentials folder and
+   mailflow.log (the application log). Nothing is stored anywhere else.
+
+LAUNCH
+------
+Double-click MailFlowLite.exe. The window title is
+"MailFlow Lite - Local email workspace". Close it from its own close
+button. Your data stays on the disk between launches.
+
+BACKGROUND SENDING
+------------------
+Automatic Sending can start a background worker and, optionally, register a
+per-user Windows Task Scheduler entry ("MailFlowLite-Background") so the
+worker starts at logon while you are signed in. The laptop must stay on and
+awake. Both can be switched off from the application.
+
+GMAIL OAUTH - ONE-TIME SETUP (REQUIRED FOR GMAIL SENDING)
+---------------------------------------------------------
+Google requires each user to create their own free OAuth desktop client:
+1. Create an OAuth 2.0 "Desktop app" client in the Google Cloud Console
+   and enable the Gmail API (free; follow docs/GOOGLE_SETUP.md in the
+   source distribution for the click-by-click steps).
+2. In the app: Email Accounts > Import client JSON > Connect Account.
+3. Send a test only to an inbox you own.
+Google puts unverified desktop apps in "Testing" mode, which expires Gmail
+refresh tokens every 7 days - reconnect when asked. Review Google's current
+production/verification rules before sending at volume.
+
+SAFETY BEHAVIOURS (INTENTIONAL - DO NOT DISABLE)
+------------------------------------------------
+- Daily send caps per account and globally
+- Explicit approval required before any campaign or test send
+- Suppression / opt-out list is enforced before dispatch
+- Uncertain or timed-out sends go to manual review and are never auto-resent
+- Provider restriction or authentication failures pause sending
+
+SECURITY NOTICE ABOUT THIS FILE
+-------------------------------
+This build is UNSIGNED. Windows may show "Windows protected your PC"
+(SmartScreen) or "The publisher could not be verified" for an unsigned
+executable. That is expected for a free, self-built release.
+-> Do NOT disable Windows security, SmartScreen or antivirus to run it.
+-> Only run a copy you downloaded from the official release page, and
+   compare its SHA-256 with SHA256SUMS.txt.
+
+TROUBLESHOOTING
+---------------
+- App will not open: check %LOCALAPPDATA%\MailFlowLite\mailflow.log
+- Sign-in loops or 503: your OAuth client is in Testing mode or the
+  redirect URI does not match - reconnect from Email Accounts
+- Nothing sent: check Automatic Sending status; sending stops on purpose
+  after errors, quota exhaustion or a provider safety hold
+
+LICENSE
+-------
+MIT (see LICENSE). Third-party open-source components: THIRD_PARTY_NOTICES.md.

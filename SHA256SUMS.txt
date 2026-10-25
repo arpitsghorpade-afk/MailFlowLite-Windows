@@ -1,0 +1,2 @@
+0b63057fd76f0057af935ce26adbadc09f0b6cdb021094a6ca5655340d1be18b  MailFlowLite/MailFlowLite.exe
+267b1f2a1a027b3303892be8e2cdb7d5679b5098cb2601f8d676c5240902855e  MailFlowLite_Windows_Release.zip
